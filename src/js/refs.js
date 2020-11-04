@@ -6,8 +6,9 @@
     KEY : '18941462-97e9f218cf6db5cf76e5888b1',
     pageNumber: 1,
     backdrop: document.querySelector('.backdrop'),
-   //  modal: document.querySelector('.modal'),
     closeModalBtn: document.querySelector('.close-modal'),
+    preloadRef: document.querySelector('#pulse-loader'),
+   upBtn: document.querySelector('.to-top'),
  }
 
  export default refs

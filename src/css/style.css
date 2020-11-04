@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth; /* свойство scroll-behavior не наследуется, применяется к прокручиваемым блокам */
+}
+
 button {
   cursor: pointer;
 }
@@ -107,4 +111,14 @@ body .basicLightbox {
   opacity: 0;
   transform: scale(0.6);
   /* transition: all 0.6s; */
+}
+
+.to-top {
+  position: fixed;
+  bottom: 10px;
+  right: 0;
+}
+
+.to-top.is-hidden {
+  display: none;
 }
