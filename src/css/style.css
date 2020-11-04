@@ -117,3 +117,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.stop-scroll {
+  overflow: hidden;
+}
