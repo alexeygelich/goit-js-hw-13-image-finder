@@ -45,7 +45,7 @@ refs.form.addEventListener('submit', e => {
     setTimeout(() => {
         preloadRef.classList.add('is-hidden');
         refs.gallery.classList.remove('is-hidden');
-    }, 1200);
+    }, 1000);
 })
 
 
