@@ -5,6 +5,7 @@ import * as basicLightbox from '../../node_modules/basiclightbox';
 import "../../node_modules/basiclightbox/dist/basicLightbox.min.css";
 import '../../node_modules/@pnotify/core/dist/BrightTheme.css';
 import "../../node_modules/@pnotify/core/dist/PNotify.css";
+import throtle from '../../node_modules/lodash.throttle/index.js'
 
 let count = 0;
 const preloadRef=document.querySelector('#pulse-loader');
@@ -38,16 +39,24 @@ const renderFn = () => {
 refs.form.addEventListener('submit', e => { 
     e.preventDefault();
     refs.gallery.innerHTML = '';
+    refs.gallery.classList.add('is-hidden');
+    preloadRef.classList.remove('is-hidden');
     renderFn();
+    setTimeout(() => {
+        preloadRef.classList.add('is-hidden');
+        refs.gallery.classList.remove('is-hidden');
+    }, 1200);
 })
 
 
-window.addEventListener('scroll', () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (clientHeight + scrollTop >= scrollHeight-500) {
-        renderFn();
-    }
-});
+window.addEventListener('scroll', throtle(() => { 
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        if (clientHeight + scrollTop >= scrollHeight-500) {
+            console.log('qwe');
+            renderFn();
+        }
+    }, 300)
+);
 
 refs.gallery.addEventListener('click', e => {
     e.path.forEach(el => {
@@ -55,11 +64,15 @@ refs.gallery.addEventListener('click', e => {
             preloadRef.classList.remove('is-hidden');
             const imgBig = el.dataset.img;
             const instance = basicLightbox.create(`
-                <img src=${imgBig}>`);
-            setTimeout(() => {
+                <img class='img-lightbox' src=${imgBig}>`);
             instance.show();
-            preloadRef.classList.add('is-hidden');
-            }, 700);
+            setTimeout(() => {
+                preloadRef.classList.add('is-hidden');
+                document.querySelector('.basicLightbox').style.opacity = 1;
+                document.querySelector('.img-lightbox').style.opacity = 1;
+                document.querySelector('.img-lightbox').style.transform = 'scale(1)'; 
+                document.querySelector('.img-lightbox').style.transition = 'all 0.6s';
+            }, 1200);
         };
                 
     });
